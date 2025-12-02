@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: { { .Release.Name } }
   labels:
     app: backend
-    release: {{ .Release.Name }}
-    version: {{ .Chart.AppVersion }}
+    release: { { .Release.Name } }
+    version: { { .Chart.AppVersion } }
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
       app: backend
-      release: {{ .Release.Name }}
+      release: { { .Release.Name } }
   template:
     metadata:
       labels:
         app: backend
-        release: {{ .Release.Name }}
-        version: {{ .Chart.AppVersion }}
+        release: { { .Release.Name } }
+        version: { { .Chart.AppVersion } }
     spec:
       automountServiceAccountToken: false
       containers:
         - name: backend
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: { { .Values.image.pullPolicy } }
           resources:
             limits:
               cpu: 500m
@@ -37,7 +37,7 @@ spec:
                 name: db-credentials
           ports:
             - name: http
-              containerPort: {{ .Values.containerPort }}
+              containerPort: { { .Values.containerPort } }
               protocol: TCP
           command:
             - "gunicorn"
@@ -48,12 +48,12 @@ spec:
             - "3"
           livenessProbe:
             tcpSocket:
-              port: {{ .Values.containerPort }}
+              port: { { .Values.containerPort } }
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
               path: /health/
-              port: {{ .Values.containerPort }}
+              port: { { .Values.containerPort } }
               httpHeaders:
                 - name: Host
                   value: localhost

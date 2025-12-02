@@ -7,18 +7,18 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    external-dns.alpha.kubernetes.io/hostname: {{ .Values.host }}
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    external-dns.alpha.kubernetes.io/hostname: { { .Values.host } }
 spec:
   ingressClassName: alb
   rules:
-    - host: {{ .Values.host }}
+    - host: { { .Values.host } }
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.service.name }}
+                name: { { .Values.service.name } }
                 port:
-                  number: {{ .Values.service.port }}
+                  number: { { .Values.service.port } }

@@ -5,7 +5,6 @@ image:
   pullPolicy: Always
   tag: "v-1"
 
-
 podAnnotations: {}
 
 host: "stage.buymeadoor.pp.ua"
@@ -33,4 +32,3 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 
 existingSecret: ""
-

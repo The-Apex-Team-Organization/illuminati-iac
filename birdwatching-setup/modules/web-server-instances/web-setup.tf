@@ -33,12 +33,12 @@ resource "aws_security_group" "web-server-security-group" {
   name   = "web-security-group-${var.env}"
 
   ingress {
-  from_port   = 8000
-  to_port     = 8000
-  protocol    = "tcp"
-  cidr_blocks = [var.vpc-cidr-block]
-}
-  
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc-cidr-block]
+  }
+
   ingress {
     from_port   = 9100
     to_port     = 9100

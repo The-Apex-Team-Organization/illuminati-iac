@@ -3,8 +3,8 @@ resource "kubernetes_namespace" "app_namespace" {
   metadata {
     name = var.app_namespace
     labels = {
-      name                = var.app_namespace
-      environment         = var.env
+      name                                  = var.app_namespace
+      environment                           = var.env
       "consul.hashicorp.com/connect-inject" = "enabled"
     }
   }

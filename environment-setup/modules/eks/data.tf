@@ -10,11 +10,11 @@ data "tls_certificate" "eks" {
 
 data "aws_iam_policy_document" "ebs_csi_assume_role_policy" {
   statement {
-    effect = "Allow"
+    effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     principals {
-      type = "Federated"
+      type        = "Federated"
       identifiers = [aws_iam_openid_connect_provider.eks.arn]
     }
 

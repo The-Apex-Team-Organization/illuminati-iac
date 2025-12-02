@@ -1,13 +1,13 @@
 module "lb" {
-  source                = "./modules/lb-instance/"
-  env                   = var.env
-  ami_name              = var.ami_name
-  public-subnets-for-lb = var.public-subnets-for-lb
-  region                = var.region
-  instance-type         = var.instance-type
-  availability-zone     = var.availability-zone
-  dns-name              = var.dns-name
-  common_tags           = local.common_tags
+  source                    = "./modules/lb-instance/"
+  env                       = var.env
+  ami_name                  = var.ami_name
+  public-subnets-for-lb     = var.public-subnets-for-lb
+  region                    = var.region
+  instance-type             = var.instance-type
+  availability-zone         = var.availability-zone
+  dns-name                  = var.dns-name
+  common_tags               = local.common_tags
   ssm_instance_profile_name = module.ssm_ec2_role.instance_profile_name
   #data var block
   vpc-cidr-block            = data.aws_vpc.account-vpc.cidr_block
@@ -19,15 +19,15 @@ module "lb" {
 }
 
 module "db" {
-  source                  = "./modules/db-instance/"
-  env                     = var.env
-  ami_name                = var.ami_name
-  private-subnets-for-db  = var.private-subnets-for-db
-  region                  = var.region
-  instance-type           = var.instance-type
-  private-subnets-for-web = var.private-subnets-for-web
-  availability-zone       = var.availability-zone
-  common_tags             = local.common_tags
+  source                    = "./modules/db-instance/"
+  env                       = var.env
+  ami_name                  = var.ami_name
+  private-subnets-for-db    = var.private-subnets-for-db
+  region                    = var.region
+  instance-type             = var.instance-type
+  private-subnets-for-web   = var.private-subnets-for-web
+  availability-zone         = var.availability-zone
+  common_tags               = local.common_tags
   ssm_instance_profile_name = module.ssm_ec2_role.instance_profile_name
   #data var block
   vpc-cidr-block         = data.aws_vpc.account-vpc.cidr_block

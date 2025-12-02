@@ -1,4 +1,3 @@
-
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -14,7 +13,7 @@ spec:
       containers:
         - name: db-migrate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: { { .Values.image.pullPolicy } }
           resources:
             limits:
               cpu: 500m
@@ -23,18 +22,18 @@ spec:
               cpu: 100m
               memory: 128Mi
               ephemeral-storage: "2Gi"
-          
-          command: 
+
+          command:
             - python
             - manage.py
             - migrate
             - --noinput
             - -v
             - "2"
-          
+
           envFrom:
             - secretRef:
                 name: db-credentials
-      
+
       restartPolicy: OnFailure
   backoffLimit: 3

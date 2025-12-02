@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
+  name: { { .Release.Name } }
   labels:
     app: frontend
-    release: {{ .Release.Name }}
-    version: {{ .Chart.AppVersion }}
+    release: { { .Release.Name } }
+    version: { { .Chart.AppVersion } }
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
       app: frontend
-      release: {{ .Release.Name }}
+      release: { { .Release.Name } }
   template:
     metadata:
       labels:
         app: frontend
-        release: {{ .Release.Name }}
-        version: {{ .Chart.AppVersion }}
+        release: { { .Release.Name } }
+        version: { { .Chart.AppVersion } }
     spec:
       containers:
         - name: frontend
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: { { .Values.image.pullPolicy } }
           ports:
             - name: http
-              containerPort: {{ .Values.containerPort }}
+              containerPort: { { .Values.containerPort } }
               protocol: TCP
           livenessProbe:
             tcpSocket:
-              port: {{ .Values.containerPort }}
+              port: { { .Values.containerPort } }
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:

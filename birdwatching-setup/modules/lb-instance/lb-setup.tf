@@ -34,12 +34,12 @@ resource "aws_route" "private-nat-route" {
 
 resource "aws_instance" "loadbalancer" {
   associate_public_ip_address = false
-  ami                    = var.ami_name
-  instance_type          = var.instance-type
-  vpc_security_group_ids = [aws_security_group.load-balancer-security-group.id]
-  subnet_id              = aws_subnet.public-subnets-for-lb.id
-  key_name               = var.public-jenkins-key
-  iam_instance_profile   = var.ssm_instance_profile_name
+  ami                         = var.ami_name
+  instance_type               = var.instance-type
+  vpc_security_group_ids      = [aws_security_group.load-balancer-security-group.id]
+  subnet_id                   = aws_subnet.public-subnets-for-lb.id
+  key_name                    = var.public-jenkins-key
+  iam_instance_profile        = var.ssm_instance_profile_name
 
   user_data_replace_on_change = true
 
