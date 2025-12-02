@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: "606207925787.dkr.ecr.us-east-1.amazonaws.com/illuminati-django-backend"
+  pullPolicy: Always
+  tag: "v-2"
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+containerPort: 8000
+
+podAnnotations: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 70
+
+external-secrets:
+  enabled: false

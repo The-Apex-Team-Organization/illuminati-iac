@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: backend
+    release: {{ .Release.Name }}
+    version: {{ .Chart.AppVersion }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: backend
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: backend
+        release: {{ .Release.Name }}
+        version: {{ .Chart.AppVersion }}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: backend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: "2Gi"
+          envFrom:
+            - secretRef:
+                name: db-credentials
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          command:
+            - "gunicorn"
+            - "auth.wsgi:application"
+            - "--bind"
+            - "0.0.0.0:{{ .Values.containerPort }}"
+            - "--workers"
+            - "3"
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.containerPort }}
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /health/
+              port: {{ .Values.containerPort }}
+              httpHeaders:
+                - name: Host
+                  value: localhost

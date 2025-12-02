@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: frontend
+    release: {{ .Release.Name }}
+    version: {{ .Chart.AppVersion }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: frontend
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: frontend
+        release: {{ .Release.Name }}
+        version: {{ .Chart.AppVersion }}
+    spec:
+      containers:
+        - name: frontend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.containerPort }}
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /
+              port: http
