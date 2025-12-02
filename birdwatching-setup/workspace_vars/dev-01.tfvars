@@ -1,4 +1,4 @@
-env                     = "dev-01"
+    kubectl get svc argocd-server -n argocdenv                     = "dev-01"
 region                  = "us-east-1"
 availability-zone       = "us-east-1a"
 ami_name                = "ami-038b732f1ef375eb5"
