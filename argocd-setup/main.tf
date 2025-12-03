@@ -5,7 +5,7 @@ provider "aws" {
       "CreatedBy"   = "Terraform"
       "Project"     = "illuminati"
       "Environment" = var.env
-      "Repository"  = "https://github.com/Red-I3ull/illuminati-iac.git"
+      "Repository"  = "https://github.com/the-apex-team/illuminati-iac.git"
       "Module"      = "argocd-setup"
     }
   }

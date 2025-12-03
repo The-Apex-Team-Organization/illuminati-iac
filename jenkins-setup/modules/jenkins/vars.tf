@@ -28,7 +28,7 @@ variable "common_tags" {
   default = {
     "CreatedBy"  = "Terraform"
     "Project"    = "illuminati"
-    "Repository" = "https://github.com/Red-I3ull/illuminati-iac.git"
+    "Repository" = "https://github.com/the-apex-team/illuminati-iac.git"
     "Module"     = "account-setup"
   }
 }
