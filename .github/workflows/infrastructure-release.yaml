@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Git Tag for Release (e.g., v1.0.0)'
+        description: "Git Tag for Release (e.g., v1.0.0)"
         required: true
         type: string
       release_notes:
-        description: 'Release Notes'
+        description: "Release Notes"
         required: false
         type: string
 
