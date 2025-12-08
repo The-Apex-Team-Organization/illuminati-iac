@@ -1,0 +1,40 @@
+name: Release Infrastructure
+
+on:
+  push:
+    tags:
+      - 'v*' # version v1.0.0 etc.
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init & Validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: Archive Terraform Configuration
+        run: |
+          zip -r illuminati-iac-${{ github.ref_name }}.zip . -x "*.git*" -x ".terraform*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          files: |
+            illuminati-iac-${{ github.ref_name }}.zip
