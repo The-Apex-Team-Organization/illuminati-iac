@@ -3,7 +3,7 @@ name: Release Infrastructure
 on:
   push:
     tags:
-      - 'v*' # version v1.0.0 etc.
+      - "v*" # version v1.0.0 etc.
 
 permissions:
   contents: write
