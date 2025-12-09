@@ -18,8 +18,16 @@ resource "aws_eip" "lb-eip" {
   })
 }
 
+resource "aws_eip" "nat-eip" {
+  domain = "vpc"
+
+  tags = merge(var.common_tags, {
+    Name = "nat-eip-${var.env}"
+  })
+}
+
 resource "aws_nat_gateway" "nat-gateway" {
-  allocation_id = var.allocation-id-for-nat-eip
+  allocation_id = aws_eip.nat-eip.id
   subnet_id     = aws_subnet.public-subnets-for-lb.id
   tags = merge(var.common_tags, {
     Name = "nat-gateway-${var.env}"

@@ -123,9 +123,65 @@ resource "aws_volume_attachment" "jenkins-volume-attachment" {
 }
 
 resource "aws_route_table_association" "private-subnet-association-for-jenkins" {
-  for_each = toset([
-    data.aws_subnet.jenkins-subnet.id,
-  ])
-  subnet_id      = each.value
+  subnet_id      = aws_subnet.private-subnet-jenkins.id
   route_table_id = data.aws_route_table.private-route-table.id
+}
+
+resource "aws_s3_bucket" "ssm_ansible" {
+  bucket = "ssm-ansible-bucket-717949299287"
+  tags   = local.common_tags
+}
+
+resource "aws_s3_bucket_public_access_block" "ssm_ansible" {
+  bucket = aws_s3_bucket.ssm_ansible.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "ssm_ansible" {
+  bucket = aws_s3_bucket.ssm_ansible.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_iam_policy" "jenkins_ssm_s3" {
+  name        = "jenkins-ssm-s3-${var.env}"
+  description = "Allow Jenkins to use SSM S3 bucket for ${var.env}"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowBucketMeta"
+        Effect = "Allow"
+        Action = [
+          "s3:GetBucketLocation",
+          "s3:ListBucket"
+        ]
+        Resource = aws_s3_bucket.ssm_ansible.arn
+      },
+      {
+        Sid    = "AllowBucketObjects"
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject"
+        ]
+        Resource = "${aws_s3_bucket.ssm_ansible.arn}/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins_ssm_s3_attach" {
+  role       = aws_iam_role.jenkins-role.name
+  policy_arn = aws_iam_policy.jenkins_ssm_s3.arn
 }

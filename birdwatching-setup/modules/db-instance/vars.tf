@@ -67,9 +67,3 @@ data "aws_subnet" "jenkins-subnet" {
     Name = "private-${var.availability-zone}-jenkins"
   }
 }
-
-data "aws_subnet" "consul-subnet" {
-  tags = {
-    Name = "private-${var.availability-zone}-consul-${var.env}"
-  }
-}

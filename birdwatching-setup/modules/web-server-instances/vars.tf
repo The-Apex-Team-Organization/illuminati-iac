@@ -47,14 +47,14 @@ variable "public-jenkins-key" {
   type        = string
 }
 
-variable "photosaver_profile" {
-  description = "Photosaver profile"
-  type        = string
-}
 
 variable "instance-type" {
   description = "default instance type for our project"
   type        = string
 }
 
+variable "photos_bucket_name" {
+  description = "S3 bucket name for storing user photos"
+  type        = string
+}
 
