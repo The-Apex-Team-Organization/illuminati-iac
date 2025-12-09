@@ -1,0 +1,63 @@
+name: Release Infrastructure
+
+on:
+  push:
+    tags:
+      - "v*" #  v1.0.0, etc.
+
+  # in case of manual trigger
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Git Tag for Release (e.g., v1.0.0)"
+        required: true
+        type: string
+      release_notes:
+        description: "Release Notes"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Set Release Variables
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "RELEASE_TAG=${{ inputs.tag }}" >> $GITHUB_ENV
+            echo "RELEASE_NAME=Release ${{ inputs.tag }}" >> $GITHUB_ENV
+          else
+            echo "RELEASE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV
+            echo "RELEASE_NAME=Release ${{ github.ref_name }}" >> $GITHUB_ENV
+          fi
+
+      - name: Terraform Init & Validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: Archive Terraform Configuration
+        run: |
+          zip -r illuminati-iac-${{ env.RELEASE_TAG }}.zip . -x "*.git*" -x ".terraform*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          name: ${{ env.RELEASE_NAME }}
+          body: ${{ inputs.release_notes }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          files: |
+            illuminati-iac-${{ env.RELEASE_TAG }}.zip
