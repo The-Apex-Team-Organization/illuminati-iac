@@ -62,18 +62,50 @@ data "aws_vpc" "account-vpc" {
 }
 
 
-variable "db_username_base64" {
-  description = "Base64 encoded database username"
-  type        = string
-  sensitive   = true
-}
-
-variable "db_name_base64" {
-  description = "Base64 encoded database name"
-  type        = string
-}
-
 variable "domain-name" {
   description = "Domain name for illuminati app"
   type        = string
+}
+
+
+variable "private_cluster_cidr_block_1" {
+  description = "First private cluster cidr block"
+  type        = string
+}
+
+variable "private_cluster_cidr_block_2" {
+  description = "Second private cluster cidr block"
+  type        = string
+}
+
+
+variable "db_private_subnet_1" {
+  description = "First database private availible subnet"
+  type        = string
+}
+
+variable "db_private_subnet_2" {
+  description = "Second database private availible subnet"
+  type        = string
+}
+
+
+variable "db_availability_zone_1" {
+  description = "First availability zone"
+  type = string
+}
+
+variable "db_availability_zone_2" {
+  description = "Second availability zone"
+  type = string
+}
+
+variable "db_username" {
+  description = "Master username for RDS DB"
+  type = string
+}
+
+variable "db_password" {
+  description = "Master password for RDS DB"
+  type = string
 }
