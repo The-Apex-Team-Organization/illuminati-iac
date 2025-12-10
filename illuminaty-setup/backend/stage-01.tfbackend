@@ -1,4 +1,4 @@
-    bucket         = ""
+    bucket         = "terraform-state-illuminati-the-apex-team-stage-01-717949299287"
     key            = "illuminaty/terraform-state/terraform.tfstate"
     region         = "us-east-1"
     use_lockfile   = true

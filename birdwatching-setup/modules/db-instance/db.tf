@@ -52,7 +52,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -63,7 +63,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -74,7 +74,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -85,7 +85,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -96,7 +96,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -107,7 +107,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "udp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }
@@ -118,7 +118,7 @@ resource "aws_security_group" "db-security-group" {
     protocol  = "tcp"
     cidr_blocks = [
       var.private-subnets-for-web,
-      "${data.aws_subnet.consul-subnet.cidr_block}",
+      aws_subnet.private-subnets-for-db.cidr_block,
       "${data.aws_subnet.jenkins-subnet.cidr_block}"
     ]
   }

@@ -14,7 +14,6 @@ module "lb" {
   public-route-table-id     = data.aws_route_table.public-route-table.id
   private-route-table-id    = data.aws_route_table.private-route-table.id
   vpc-id                    = data.aws_vpc.account-vpc.id
-  allocation-id-for-nat-eip = data.aws_eip.nat-eip.id
   public-jenkins-key        = data.aws_key_pair.jenkins-key-pair.key_name
 }
 
@@ -45,10 +44,10 @@ module "web-servers-instances" {
   instance-type           = var.instance-type
   availability-zone       = var.availability-zone
   common_tags             = local.common_tags
+  photos_bucket_name      = var.photos_bucket_name
   #data var block
   vpc-cidr-block         = data.aws_vpc.account-vpc.cidr_block
   public-jenkins-key     = data.aws_key_pair.jenkins-key-pair.key_name
-  photosaver_profile     = data.aws_iam_instance_profile.photosaver_profile.name
   private-route-table-id = data.aws_route_table.private-route-table.id
   vpc-id                 = data.aws_vpc.account-vpc.id
 }
