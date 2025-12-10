@@ -23,17 +23,17 @@ output "illuminati-eks-nodes-id" {
   value       = module.environment-eks.illuminati-eks-nodes-id
 }
 
-output "db_connection_info" {
-  description = "Database connection info "
-  value       = module.rds_mariadb.db_connection_info
-  sensitive   = true
-}
-
-output "secrets_manager_arn" {
-  description = "ARN of the Secrets Manager secret containing the password"
-  value       = module.rds_mariadb.secrets_manager_arn
-}
-
 output "acm_certificate_arn" {
   value = module.dns.acm_certificate_arn
+}
+
+
+output "db_subnet_group_id" {
+  description = "Database security group"
+  value = module.rds_mariadb.db_subnet_group_id
+}
+
+output "db_private_subnets" {
+  description = "Private avaliable subnets"
+  value = module.rds_mariadb.db_private_subnets
 }
