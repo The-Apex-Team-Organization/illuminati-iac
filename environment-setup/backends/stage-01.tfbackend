@@ -1,0 +1,5 @@
+    bucket         = ""
+    key            = "environment/terraform-state/terraform.tfstate"
+    region         = "us-east-1"
+    use_lockfile   = true
+    encrypt        = true
