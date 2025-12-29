@@ -3,3 +3,7 @@
 .terraform/
 .idea/
 node_modules/
+/lambda-setup/modules/aws_lambda_function/lambda_function.zip
+/lambda-setup/modules/aws_lambda_function/src/lambda_function_1.0.0/
+/lambda-setup/modules/aws_lambda_function/lambda_build/
+.venv/

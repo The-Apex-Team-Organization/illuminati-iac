@@ -52,6 +52,11 @@ resource "aws_route_table_association" "private-us-east-1b" {
   route_table_id = aws_route_table.private-route-table.id
 }
 
+resource "aws_route_table_association" "prometeus-to-nat" {
+  subnet_id      = data.aws_subnet.private-subnet-prometheus.id
+  route_table_id = aws_route_table.private-route-table.id
+}
+
 resource "aws_route_table_association" "public-us-east-1a" {
   subnet_id      = aws_subnet.public-us-east-1a.id
   route_table_id = aws_route_table.public-route-table.id
