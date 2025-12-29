@@ -1,24 +1,14 @@
-output "db_connection_info" {
-  description = "Database connection info "
-  value = {
-    id       = aws_db_instance.mariadb.id
-    endpoint = aws_db_instance.mariadb.endpoint
-    host     = aws_db_instance.mariadb.address
-    port     = aws_db_instance.mariadb.port
-    username = local.db_username
-    database = local.db_name
-    password = local.db_password
-  }
-  sensitive = true
+
+output "db_subnet_group_id" {
+  description = "Database security group"
+  value       = aws_db_subnet_group.my_db_subnet_group.vpc_id
 }
 
-output "secrets_manager_arn" {
-  description = "ARN of the Secrets Manager secret containing the password"
-  value       = aws_secretsmanager_secret.rds_creds.arn
-}
 
-output "secrets_manager_name" {
-  description = "Name of the Secrets Manager secret"
-  value       = aws_secretsmanager_secret.rds_creds.name
+output "db_private_subnets" {
+  description = "Private avaliable subnets"
+  value = [
+    aws_subnet.db_private_subnet_1.id,
+    aws_subnet.db_private_subnet_2.id
+  ]
 }
-

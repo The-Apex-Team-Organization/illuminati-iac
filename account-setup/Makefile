@@ -1,5 +1,5 @@
 .PHONY: init plan apply destroy bootstrap
-ENV=dev-01
+ENV=stage-01
 
 #this step will create S3 buket for backends
 bootstrap:

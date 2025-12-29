@@ -1,5 +1,5 @@
 env               = "stage-01"
-vpc-id            = "vpc-0ff1c205c39ef6fc5" #pass existing value
+vpc-id            = "vpc-073bc9a3b1dce68e4" #pass existing value
 region            = "us-east-1"
 availability-zone = "us-east-1a"
 

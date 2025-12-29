@@ -1,6 +1,6 @@
 .PHONY: init plan apply destroy
 
-BIRD_ENV=dev-01
+BIRD_ENV=stage-01
 
 init:
 	terraform init -backend-config="./backends/${BIRD_ENV}.tfbackend"

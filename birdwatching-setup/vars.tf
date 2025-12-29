@@ -48,6 +48,11 @@ variable "dns-name" {
   type        = string
 }
 
+variable "photos_bucket_name" {
+  description = "S3 bucket name for storing user photos"
+  type        = string
+}
+
 #DATA CODE BLOCK
 data "aws_route_table" "private-route-table" {
   tags = {
@@ -61,15 +66,6 @@ data "aws_route_table" "public-route-table" {
   }
 }
 
-data "aws_iam_instance_profile" "photosaver_profile" {
-  name = "photosaver-profile"
-}
-
-data "aws_eip" "nat-eip" {
-  tags = {
-    Name = "nat-eip-${var.env}"
-  }
-}
 
 data "aws_key_pair" "jenkins-key-pair" {
   key_name = "jenkins-public"
@@ -77,6 +73,6 @@ data "aws_key_pair" "jenkins-key-pair" {
 
 data "aws_vpc" "account-vpc" {
   tags = {
-    Name = "BirdwatchingProject"
+    Name = "illuminati"
   }
 }

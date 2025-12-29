@@ -1,42 +1,57 @@
-variable "db_username_base64" {
-  description = "Base64 encoded database username"
-  type        = string
-  sensitive   = true
-}
 
-variable "db_name_base64" {
-  description = "Base64 encoded database name"
+variable "cluster-name" {
+  description = "EKS cluster name"
   type        = string
 }
 
-variable "env" {
-  description = "Specifies the target environment (e.g., dev, stage, prod) for resource provisioning"
+variable "private_cluster_cidr_block_1" {
+  description = "Subnet of eks nodes"
   type        = string
 }
 
-variable "region" {
-  description = "The region to create the resources in"
+variable "private_cluster_cidr_block_2" {
+  description = "Subnet of eks nodes"
   type        = string
 }
 
 
-variable "availability-zone" {
-  description = "Availability zone for subnets"
+variable "db_username" {
+  description = "Master username for RDS DB"
   type        = string
-  default     = "us-east-1a"
 }
 
-variable "subnet_ids_private" {
-  description = "List of private subnet IDs for RDS to associate"
-  type        = list(string)
+variable "db_password" {
+  description = "Master password for RDS DB"
+  type        = string
 }
 
-variable "private-subnet-cidrs" {
-  description = "CIDR blocks for private subnets"
-  type        = list(string)
+
+variable "vpc_id" {
+  description = "VPC id for deployment"
+  type        = string  
 }
 
-variable "vpc-id" {
-  description = "The VPC ID where resources will be deployed"
+variable "public_route_table_id" {
+  description = "Public route table for NAT & ELB"
+  type        = string
+}
+
+variable "db_private_subnet_1" {
+  description = "Private subnet for RDS"
+  type        = string
+}
+
+variable "db_private_subnet_2" {
+  description = "Private subnet for RDS"
+  type        = string
+}
+
+variable "db_availability_zone_1" {
+  description = "First availability zone"
+  type        = string
+}
+
+variable "db_availability_zone_2" {
+  description = "Second availability zone"
   type        = string
 }

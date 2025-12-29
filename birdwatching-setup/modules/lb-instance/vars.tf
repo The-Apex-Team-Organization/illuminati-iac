@@ -47,10 +47,6 @@ variable "availability-zone" {
   type        = string
 }
 
-variable "allocation-id-for-nat-eip" {
-  description = "This ID belongs to the IP that will be assigned to the NAT gateway"
-  type        = string
-}
 
 variable "public-jenkins-key" {
   description = "SSH Key Pair name"
